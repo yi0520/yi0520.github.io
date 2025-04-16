@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<title>B3A05作業08</title>
+	<style>
+		h4 {
+            color: blue;
+        }
+        label {
+            color: brown;
+        }
+        input {
+            color: black;
+        }
+        div {
+            color: purple;
+            margin: 5px;
+        }
+        table {
+            width: 40%;
+            border-color: dodgerblue;
+            border-style: solid;
+            border-collapse: collapse;
+        }
+        tr {
+            text-align: left;
+            border-color: dodgerblue;
+            border-style: solid;
+        }
+        td {
+            vertical-align: middle;
+            border-color: dodgerblue;
+            border-style: solid;
+        }
+        td:nth-child(1) {
+            color: #5599FF;
+        }
+        td:nth-child(2) {
+            color: black;
+
+	</style>
+</head>
+<body>
+<main>
+	<form id="form01">
+		<label for="name">姓名:</label>
+		<input type="text" id="name" name="name01" value="阮淳翌"><br>
+
+		<label for="address">收件住址:</label>
+		<input type="text" id="address" name="address01" value="基隆市信義區孝東路116-3號14樓"><br>
+
+		<label for="tel">電話:</label>
+		<input type="tel" id="tel" name="tel01" value="0967374955"><br>
+
+		<label for="email">電子郵件:</label>
+		<input type="email" id="email" name="email01" value="qqcyr0520@gmail.com"><br>
+
+		<label for="date">指定送貨日期:</label>
+		<input type="date" id="date" name="date01"><br>
+
+		<fieldset>
+			<legend>水果種類:(四選一)</legend>
+			<input type="radio" id="fruit01" name="fruit" value="珍珠芭樂 (10台斤)">
+			<label for="fruit01">珍珠芭樂 (10台斤) 650元</label><br>
+
+			<input type="radio" id="fruit02" name="fruit" value="台農二號有機木瓜 (6台斤)">
+			<label for="fruit02">台農二號有機木瓜 (6台斤) 545元</label><br>
+
+			<input type="radio" id="fruit03" name="fruit" value="拉拉山巴陵部落水蜜桃(10顆/2盒)">
+			<label for="fruit03">拉拉山巴陵部落水蜜桃(10顆/2盒) 1885元</label><br>
+
+			<input type="radio" id="fruit04" name="fruit" value="玉女小番茄 (6斤)">
+			<label for="fruit04">玉女小番茄 (6斤) 974元</label><br>
+		</fieldset>
+	</form>
+	<br>
+	<button onclick="shoppingInfo()"><h4>結帳</h4></button>
+	<div id="demo"></div>
+</main>
+
+<script>
+	function shoppingInfo() {
+        const form = document.getElementById("form01");
+        let item = "";
+        let price = 0;
+        let text = "<h4>您的購物資訊如下：</h4><table>";
+
+        for (let i = 0; i < 5; i++) {
+            switch (i) {
+                case 0:
+                    item = "姓名: ";
+                    break;
+                case 1:
+                    item = "收件地址: ";
+                    break;
+                case 2:
+                    item = "電話: ";
+                    break;
+                case 3:
+                    item = "電子郵件: ";
+                    break;
+                case 4:
+                    item = "指定送貨日期: ";
+                    break;
+            }
+            text += `<tr><td>${item}</td><td>${form.elements[i].value}</td></tr>`;
+        }
+
+        const fruitRadios = document.getElementsByName("fruit");
+        let selectedFruit = null;
+
+        for (let i = 0; i < fruitRadios.length; i++) {
+            if (fruitRadios[i].checked) {
+                selectedFruit = fruitRadios[i];
+                break;
+            }
+        }
+
+        if (selectedFruit) {
+            switch (selectedFruit.id) {
+                case "fruit01":
+                    price = 650;
+                    break;
+                case "fruit02":
+                    price = 545;
+                    break;
+                case "fruit03":
+                    price = 1885;
+                    break;
+                case "fruit04":
+                    price = 974;
+                    break;
+            }
+            text += `<tr><td>水果種類: </td><td>${selectedFruit.value}</td></tr>`;
+            text += `<tr><td>價格合計: </td><td>${price} 元</td></tr>`;
+        } else {
+            text += "<tr><td colspan='2'>請選擇水果種類</td></tr>";
+        }
+
+        text += "</table>";
+        document.getElementById("demo").innerHTML = text;
+    }
+</script>
+</body>
+</html>
