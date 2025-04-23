@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>作業09</title>
+	<style>
+		h4 {
+            color: blue;
+        }
+
+        div {
+            color: purple;
+            margin: 5px;
+        }
+
+
+	</style>
+</head>
+<body>
+<header>
+	<h1 style="color: #8B0000;">水果訂購系統</h1> <!-- 設置標題文字顏色為暗紅色 -->
+</header>
+<main>
+	<form id="form01">
+		<span style="color: #006400;">姓名：</span><input type="text" name="name01" value="阮淳翌" style="color: #006400;"><br> <!-- 設置姓名文字和輸入框文字顏色為深黑色 -->
+		<span style="color: #8B008B;">收件地址：</span><input type="text" name="address01" value="基隆市信義區孝東路116-3號14樓" style="color: #8B008B;"><br> <!-- 設置地址文字和輸入框文字顏色為深紫色 -->
+		電話：<input type="tel" name="tel01" value="0967374955"><br>
+		電子郵件：<input type="email" name="email01" value="qqcyr0520@gmail.com"><br>
+		指定送貨日期：<input type="date" name="date01"><br>
+		水果種類：<br>
+		<input type="checkbox" name="fruit" id="fruit01" value="珍珠芭樂 (10台斤)">珍珠芭樂 (10台斤) 650元；
+		購買數量：<input type="number" name="number01"><br>
+		<input type="checkbox" name="fruit" id="fruit02" value="台農二號有機木瓜 (6台斤)">台農二號有機木瓜 (6台斤) 545元；
+		購買數量：<input type="number" name="number02"><br>
+		<input type="checkbox" name="fruit" id="fruit03" value="拉拉山巴陵部落水蜜桃(10顆/2盒)">拉拉山巴陵部落水蜜桃(10顆/2盒) 1885元；
+		購買數量：<input type="number" name="number03"><br>
+		<button type="button" onclick="shoppingInfo()" style="color: white; background-color: #4B0082;">結帳</button> <!-- 設置結帳按鈕文字顏色為白色,背景顏色為深紫色 -->
+	</form>
+	<div id="demo"></div>
+</main>
+<footer>
+	<p>&copy; 2023 水果訂購系統</p>
+</footer>
+
+<!-- JavaScript 代碼保持不變 -->
+<script>
+	function shoppingInfo() {
+        const form = document.getElementById("form01");
+        let output = "<h4>您的購物資訊如下：</h4>";
+        const fruits = [
+            { type: "珍珠芭樂 (10台斤)", price: 650 },
+            { type: "台農二號有機木瓜 (6台斤)", price: 545 },
+            { type: "拉拉山巴陵部落水蜜桃(10顆/2盒)", price: 1885 }
+        ];
+
+        for (let i = 0; i < 5; i++) {
+            const item = [
+                "姓名：",
+                "收件地址：",
+                "電話：",
+                "電子郵件：",
+                "指定送貨日期："
+            ][i];
+            output += `${item}${form.elements[i].value}<br>`;
+        }
+
+        let totalPrice = 0;
+        for (let i = 5; i <= 9; i += 2) {
+            if (form.elements[i].checked) {
+                const fruitIndex = (i - 5) / 2;
+                const quantity = form.elements[i + 1].value;
+                const fruit = fruits[fruitIndex];
+                const subTotal = fruit.price * quantity;
+                totalPrice += subTotal;
+                output += `水果種類：${fruit.type}；共${quantity}單位<br>`;
+                output += `價格小計：${subTotal}元<br>`;
+            }
+        }
+
+        output += `價格合計：${totalPrice}元<br>`;
+        document.getElementById("demo").innerHTML = output;
+    }
+</script>
+</body>
+</html>
